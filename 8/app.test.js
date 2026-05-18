@@ -28,7 +28,7 @@ test.serial('2. POST /add - Přidání nového úkolu a přesměrování', async
     t.is(res.status, 302);
     t.is(res.headers.get('location'), '/');
 
-    // Ověříme, že se to reálně uložilo do in-memory databáze
+    // Ověření reálně uloženého úkolu do in-memory databáze
     const allTasks = await db.select().from(todos);
     const naseTodo = allTasks.find(task => task.title === 'Testovací integrace');
     
@@ -38,7 +38,7 @@ test.serial('2. POST /add - Přidání nového úkolu a přesměrování', async
 });
 
 test.serial('3. GET /todo/:id - Zobrazení detailu úkolu', async (t) => {
-    // Vložíme si testovací data přímo do databáze
+    // Testovací data přímo do databáze
     const testId = 'test-detail-id';
     await db.insert(todos).values({ 
         id: testId, 

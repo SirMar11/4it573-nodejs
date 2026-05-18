@@ -11,14 +11,14 @@ const { eq } = require('drizzle-orm');
 const app = new Hono();
 const generateId = () => Math.random().toString(36).substring(2, 9);
 
-// Vykresluje .html soubory pomocí EJS
+
 async function renderFile(filename, data) {
     const filepath = path.join(__dirname, 'views', filename);
     const template = await fs.readFile(filepath, 'utf-8');
     return ejs.render(template, data);
 }
 
-// --- WEBSOCKETY ---
+// WEBSOCKETY
 const wss = new WebSocketServer({ noServer: true });
 
 wss.on('connection', (ws) => {
@@ -39,7 +39,7 @@ function broadcast(topic, payload) {
         }
     });
 }
-// ------------------
+
 
 app.get('/', async (c) => {
     const allTasks = await db.select().from(todos);
@@ -123,7 +123,7 @@ if (require.main === module) {
         });
     });
     
-    console.log(`✅ Server s WebSockety běží na http://localhost:${port}`);
+    console.log(`Server s WebSockety běží na http://localhost:${port}`);
 }
 
 module.exports = app;

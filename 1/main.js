@@ -7,7 +7,6 @@ let vyhra = false;
 console.log("Myslím si číslo od 0 do 10. Máš 5 pokusů na to ho uhodnout.");
 
 while (pokusy > 0) {
-    // readlineSync.question() funguje synchronně, úplně stejně jako prompt()
     const odpoved = readlineSync.question(`Zadej svuj tip (zbyva ${pokusy} pokusu): `);
     const tip = parseInt(odpoved, 10);
 

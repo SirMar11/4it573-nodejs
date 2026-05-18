@@ -3,7 +3,7 @@ const { Hono } = require('hono');
 const ejs = require('ejs');
 const fs = require('fs/promises');
 const path = require('path');
-const { WebSocketServer } = require('ws'); // NOVÉ
+const { WebSocketServer } = require('ws');
 const { db } = require('./db');
 const { todos } = require('./db/schema');
 const { eq } = require('drizzle-orm');
@@ -17,7 +17,7 @@ async function renderFile(filename, data) {
     return ejs.render(template, data);
 }
 
-// --- LOGIKA WEBSOCKETŮ ---
+// LOGIKA WEBSOCKETY
 const wss = new WebSocketServer({ noServer: true });
 
 wss.on('connection', (ws) => {
@@ -34,7 +34,7 @@ function broadcast(topic, payload) {
         }
     });
 }
-// -------------------------
+
 
 app.get('/', async (c) => {
     const allTasks = await db.select().from(todos);
@@ -47,7 +47,7 @@ app.post('/add', async (c) => {
         await db.insert(todos).values({ 
             id: generateId(), title: body.task.trim(), completed: 0, priority: body.priority || 'normal'
         });
-        broadcast('list', { type: 'update' }); // Upozorní hlavní stránku
+        broadcast('list', { type: 'update' });
     }
     return c.redirect('/');
 });
@@ -67,7 +67,7 @@ app.get('/todo/:id/toggle', async (c) => {
         const newStatus = currentTask.completed === 1 ? 0 : 1;
         await db.update(todos).set({ completed: newStatus }).where(eq(todos.id, id));
         
-        // Upozorníme seznam i konkrétní detail (dva eventy dle zadání)
+        // Upozorníme seznam i konkrétní detail
         broadcast('list', { type: 'update' });
         broadcast(`detail:${id}`, { type: 'update', task: { ...currentTask, completed: newStatus } });
     }
@@ -79,7 +79,7 @@ app.get('/todo/:id/delete', async (c) => {
     await db.delete(todos).where(eq(todos.id, id));
     
     broadcast('list', { type: 'update' });
-    broadcast(`detail:${id}`, { type: 'deleted' }); // Bonusový bod: upozorní detail na smazání
+    broadcast(`detail:${id}`, { type: 'deleted' }); // Bonusový bod - upozorní detail na smazání
     return c.redirect('/');
 });
 
@@ -110,4 +110,4 @@ server.on('upgrade', (request, socket, head) => {
     });
 });
 
-console.log(`✅ Server s WebSockety běží na http://localhost:${port}`);
+console.log(`Server s WebSockety běží na http://localhost:${port}`);

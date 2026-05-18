@@ -7,12 +7,12 @@ async function generujSoubory() {
         const pocetSouboru = parseInt(data.trim(), 10);
 
         if (isNaN(pocetSouboru) || pocetSouboru <= 0) {
-            console.error('❌ Chyba: Soubor "instrukce.txt" neobsahuje platné kladné číslo.');
+            console.error('Chyba: Soubor "instrukce.txt" neobsahuje kladné číslo.');
             return;
         }
 
         // 2. Příprava pole pro asynchronní operace
-        const poleSlidu = []; // Pole pro uložení jednotlivých Promises
+        const poleSlidu = [];
 
         // 3. Naplnění pole operacemi (zatím na ně nečekáme)
         for (let i = 0; i < pocetSouboru; i++) {

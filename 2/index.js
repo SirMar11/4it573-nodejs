@@ -8,7 +8,7 @@ async function zkopirujSoubor() {
             instrukceData = await readFile('instrukce.txt', 'utf-8');
         } catch (error) {
             console.error('Chyba: Soubor "instrukce.txt" neexistuje nebo ho nelze přečíst.');
-            return; // Ukončíme funkci, nemá smysl pokračovat
+            return;
         }
 
         // Zpracování instrukcí - rozdělíme text podle odřádkování a odstraníme prázdné mezery
@@ -41,5 +41,4 @@ async function zkopirujSoubor() {
     }
 }
 
-// Spuštění asynchronní funkce
 zkopirujSoubor();

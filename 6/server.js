@@ -81,4 +81,4 @@ app.notFound(async (c) => {
 });
 
 serve({ fetch: app.fetch, port: 3000 });
-console.log(`✅ Server běží na http://localhost:3000`);
+console.log(`Server běží na http://localhost:3000`);

@@ -6,7 +6,7 @@ const path = require('path');
 
 const app = new Hono();
 
-// Rozšířená datová struktura (nyní pole objektů)
+// Rozšířená datová struktura (pole objektů)
 let tasks = [
     { id: '1', title: 'Naučit se Node.js', completed: false },
     { id: '2', title: 'Zprovoznit Hono', completed: true }
@@ -45,14 +45,14 @@ app.get('/todo/:id', async (c) => {
     return c.html(await renderFile('detail.html', { task }));
 });
 
-// Přepnutí stavu (odkaz)
+// Přepnutí stavu
 app.get('/todo/:id/toggle', (c) => {
     const task = tasks.find(t => t.id === c.req.param('id'));
     if (task) task.completed = !task.completed;
     return c.redirect(`/todo/${c.req.param('id')}`);
 });
 
-// Smazání (odkaz)
+// Smazání
 app.get('/todo/:id/delete', (c) => {
     tasks = tasks.filter(t => t.id !== c.req.param('id'));
     return c.redirect('/');
@@ -74,4 +74,4 @@ app.notFound(async (c) => {
 });
 
 serve({ fetch: app.fetch, port: 3000 });
-console.log(`✅ Hono server běží na http://localhost:3000`);
+console.log(`Server běží na http://localhost:3000`);
