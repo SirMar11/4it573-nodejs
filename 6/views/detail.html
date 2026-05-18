@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail úkolu</title>
+</head>
+<body style="font-family: sans-serif; max-width: 400px; margin: 2rem auto;">
+    <a href="/">&larr; Zpět na seznam</a>
+    
+    <h2><%= task.title %></h2>
+    <p>Stav: <strong><%= task.completed === 1 ? '✅ Hotovo' : '❌ Nedokončeno' %></strong></p>
+    <p>Priorita: <strong><%= task.priority %></strong></p>
+    
+    <p>
+        <a href="/todo/<%= task.id %>/toggle">Změnit stav</a> | 
+        <a href="/todo/<%= task.id %>/delete" style="color: red;">Odstranit</a>
+    </p>
+
+    <hr>
+
+    <form action="/todo/<%= task.id %>/edit" method="POST">
+        <label>Změnit titulek:</label><br>
+        <input type="text" name="title" value="<%= task.title %>" required><br><br>
+        
+        <label>Změnit prioritu:</label><br>
+        <select name="priority">
+            <option value="low" <%= task.priority === 'low' ? 'selected' : '' %>>Nízká</option>
+            <option value="normal" <%= task.priority === 'normal' ? 'selected' : '' %>>Normální</option>
+            <option value="high" <%= task.priority === 'high' ? 'selected' : '' %>>Vysoká</option>
+        </select><br><br>
+        
+        <button type="submit">Uložit změnu</button>
+    </form>
+</body>
+</html>

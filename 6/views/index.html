@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Aplikace</title>
+</head>
+<body style="font-family: sans-serif; max-width: 400px; margin: 2rem auto;">
+    <h1>Moje úkoly</h1>
+    
+    <form action="/add" method="POST" style="margin-bottom: 20px;">
+        <input type="text" name="task" placeholder="Zadej nový úkol" required>
+        <select name="priority">
+            <option value="low">Nízká</option>
+            <option value="normal" selected>Normální</option>
+            <option value="high">Vysoká</option>
+        </select>
+        <button type="submit">Přidat</button>
+    </form>
+
+    <ul>
+        <% if (locals.tasks && tasks.length > 0) { %>
+            <% tasks.forEach(function(task) { %>
+                <li>
+                    <a href="/todo/<%= task.id %>"><%= task.title %></a> 
+                    <small>(Priorita: <%= task.priority %>)</small>
+                    <% if(task.completed === 1) { %> <small>✅</small> <% } %>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>Zatím tu nejsou žádné úkoly.</li>
+        <% } %>
+    </ul>
+</body>
+</html>

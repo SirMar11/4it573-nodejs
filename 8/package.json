@@ -1,0 +1,27 @@
+{
+  "name": "4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "set NODE_ENV=test&& ava",
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "@hono/node-server": "^2.0.2",
+    "better-sqlite3": "^12.10.0",
+    "drizzle-orm": "^0.45.2",
+    "ejs": "^5.0.2",
+    "hono": "^4.12.19",
+    "ws": "^8.20.1"
+  },
+  "devDependencies": {
+    "ava": "^8.0.0",
+    "drizzle-kit": "^0.31.10",
+    "tsx": "^4.22.1"
+  }
+}

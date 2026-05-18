@@ -1,0 +1,78 @@
+{
+	"name": "memoize",
+	"version": "11.0.0",
+	"description": "Memoize functions - An optimization used to speed up consecutive function calls by caching the result of calls with identical input",
+	"license": "MIT",
+	"repository": "sindresorhus/memoize",
+	"funding": "https://github.com/sindresorhus/memoize?sponsor=1",
+	"author": {
+		"name": "Sindre Sorhus",
+		"email": "sindresorhus@gmail.com",
+		"url": "https://sindresorhus.com"
+	},
+	"type": "module",
+	"exports": {
+		"types": "./distribution/index.d.ts",
+		"default": "./distribution/index.js"
+	},
+	"sideEffects": false,
+	"engines": {
+		"node": ">=22"
+	},
+	"scripts": {
+		"test": "xo && ava && npm run build && tsd --typings distribution/index.d.ts",
+		"build": "del-cli distribution && tsc",
+		"prepack": "npm run build"
+	},
+	"files": [
+		"distribution"
+	],
+	"keywords": [
+		"memoize",
+		"function",
+		"mem",
+		"memoization",
+		"cache",
+		"caching",
+		"optimize",
+		"performance",
+		"ttl",
+		"expire",
+		"promise"
+	],
+	"dependencies": {
+		"mimic-function": "^5.0.1"
+	},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "^8.1.0",
+		"@types/serialize-javascript": "^5.0.4",
+		"ava": "^7.0.0",
+		"del-cli": "^7.0.0",
+		"delay": "^7.0.0",
+		"serialize-javascript": "^7.0.4",
+		"tsd": "^0.33.0",
+		"tsimp": "^2.0.12",
+		"xo": "^2.0.2"
+	},
+	"ava": {
+		"timeout": "1m",
+		"extensions": {
+			"ts": "module"
+		},
+		"nodeArguments": [
+			"--import=tsimp"
+		],
+		"workerThreads": false,
+		"environmentVariables": {
+			"TSIMP_DIAG": "ignore"
+		}
+	},
+	"xo": {
+		"rules": {
+			"@typescript-eslint/no-unsafe-call": "off",
+			"@typescript-eslint/no-unsafe-member-access": "off",
+			"@typescript-eslint/no-unsafe-return": "off",
+			"@typescript-eslint/no-unsafe-type-assertion": "off"
+		}
+	}
+}

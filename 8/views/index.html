@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Todo Aplikace</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 2rem auto; }
+        ul { padding: 0; }
+        li { list-style: none; margin-bottom: 0.5rem; padding: 0.5rem; background: #f4f4f4; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>Moje úkoly</h1>
+    
+    <form action="/add" method="POST" style="margin-bottom: 20px;">
+        <input type="text" name="task" placeholder="Zadej nový úkol" required>
+        <select name="priority">
+            <option value="low">Nízká</option>
+            <option value="normal" selected>Normální</option>
+            <option value="high">Vysoká</option>
+        </select>
+        <button type="submit">Přidat</button>
+    </form>
+
+    <ul>
+        <% if (locals.tasks && tasks.length > 0) { %>
+            <% tasks.forEach(function(task) { %>
+                <li>
+                    <a href="/todo/<%= task.id %>"><%= task.title %></a> 
+                    <small>(Priorita: <%= task.priority %>)</small>
+                    <% if(task.completed === 1) { %> <small>✅</small> <% } %>
+                </li>
+            <% }); %>
+        <% } else { %>
+            <li>Zatím tu nejsou žádné úkoly.</li>
+        <% } %>
+    </ul>
+
+    <script>
+        const ws = new WebSocket(`ws://${location.host}`);
+        ws.onopen = () => ws.send(JSON.stringify({ type: 'subscribe', topic: 'list' }));
+        
+        ws.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            if (data.type === 'update') {
+                location.reload();
+            }
+        };
+    </script>
+</body>
+</html>
