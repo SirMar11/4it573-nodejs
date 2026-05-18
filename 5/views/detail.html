@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <title>Detail úkolu</title>
+</head>
+<body style="font-family: sans-serif; max-width: 400px; margin: 2rem auto;">
+    <a href="/">&larr; Zpět na seznam</a>
+    
+    <h2><%= task.title %></h2>
+    <p>Stav: <strong><%= task.completed ? '✅ Hotovo' : '❌ Nedokončeno' %></strong></p>
+    
+    <p>
+        <!-- Odkazy pro operace -->
+        <a href="/todo/<%= task.id %>/toggle">Změnit stav</a> | 
+        <a href="/todo/<%= task.id %>/delete" style="color: red;">Odstranit</a>
+    </p>
+
+    <hr>
+
+    <!-- Formulář na změnu titulku -->
+    <form action="/todo/<%= task.id %>/edit" method="POST">
+        <label>Změnit titulek:</label><br>
+        <input type="text" name="title" value="<%= task.title %>" required>
+        <button type="submit">Uložit změnu</button>
+    </form>
+</body>
+</html>

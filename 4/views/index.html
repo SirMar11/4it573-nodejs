@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo Aplikace</title>
+    <style>
+        body { font-family: sans-serif; max-width: 400px; margin: 2rem auto; }
+        ul { padding: 0; }
+        li { list-style: none; margin-bottom: 0.5rem; padding: 0.5rem; background: #f4f4f4; border-radius: 4px; }
+        input[type="text"] { padding: 0.5rem; width: 70%; }
+        button { padding: 0.5rem; width: 25%; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <h1>Moje úkoly</h1>
+    
+    <!-- Formulář pro přidání úkolu -->
+    <form action="/add" method="POST">
+        <input type="text" name="task" placeholder="Zadej nový úkol" required>
+        <button type="submit">Přidat</button>
+    </form>
+
+    <!-- Výpis úkolů pomocí EJS -->
+    <ul>
+        <% if (locals.tasks && tasks.length > 0) { %>
+            <% tasks.forEach(function(task) { %>
+                <li><%= task %></li>
+            <% }); %>
+        <% } else { %>
+            <li>Zatím tu nejsou žádné úkoly.</li>
+        <% } %>
+    </ul>
+</body>
+</html>
